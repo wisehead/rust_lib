@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) 启动",
+            "type": "cppdbg",
+            "preLaunchTask": "build",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/greeting",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "targetArchitecture": "arm64"
+        }
+    ]
+}
