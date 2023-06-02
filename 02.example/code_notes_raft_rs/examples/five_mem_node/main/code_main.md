@@ -51,5 +51,13 @@ main
 ------------let mut proposals = proposals.lock().unwrap();
 ------------for p in proposals.iter_mut().skip_while(|p| p.proposed > 0) {
 --------------propose(raft_group, p);
+----------// Handle readies from the raft.
+----------on_ready(
+                raft_group,
+                &mut node.kv_pairs,
+                &node.mailboxes,
+                &proposals,
+                &logger,
+            );
 
 ```
