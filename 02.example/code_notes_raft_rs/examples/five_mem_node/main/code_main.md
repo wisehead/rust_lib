@@ -25,4 +25,17 @@ main
 ------0 => Node::create_raft_leader(1, rx, mailboxes, &logger),
 ------// Other peers are followers.
 ------_ => Node::create_raft_follower(rx, mailboxes),
+----let proposals = Arc::clone(&proposals);//每个raft node线程有独立的queue
+----let rx_stop_clone = Arc::clone(&rx_stop);
+----// Here we spawn the node on a new thread and keep a handle so we can join on them later.
+----let handle = thread::spawn
+------loop
+--------thread::sleep(Duration::from_millis(10));
+-------- loop {
+                // Step raft messages.
+----------match node.my_mailbox.try_recv() {
+------------Ok(msg) => node.step(msg, &logger),
+------------Err(TryRecvError::Empty) => break,
+------------Err(TryRecvError::Disconnected) => return,
+
 ```
