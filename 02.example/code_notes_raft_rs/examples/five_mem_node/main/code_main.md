@@ -17,4 +17,12 @@ main
 --// after it's committed by the raft cluster, it will be poped from the queue.
 --let proposals = Arc::new(Mutex::new(VecDeque::<Proposal>::new()));
 --let mut handles = Vec::new();
+--for (i, rx) in rx_vec.into_iter().enumerate() {
+----// A map[peer_id -> sender]. In the example we create 5 nodes, with ids in [1, 5].
+----let mailboxes = (1..6u64).zip(tx_vec.iter().cloned()).collect();
+----let mut node = match i {
+------// Peer 1 is the leader.
+------0 => Node::create_raft_leader(1, rx, mailboxes, &logger),
+------// Other peers are followers.
+------_ => Node::create_raft_follower(rx, mailboxes),
 ```
