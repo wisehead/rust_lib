@@ -104,18 +104,21 @@ impl TodoList {
 #[tokio::main]
 async fn main() -> Result<()> {
     //打开数据库
-    let tree = sled::open("/tmp/welcome-to-sled").expect("open");
+    //let tree = sled::open("/tmp/welcome-to-sled").expect("open");
+    let tree = sled::open("/tmp/raft_log.bak/sled/1125_9_7066373972136435680.2").expect("open");
 
     // 插入KV，读取Key对应的值
-    tree.insert("KEY1", "VAL1");
-    assert_eq!(tree.get(&"KEY1"), Ok(Some(sled::IVec::from("VAL1"))));
+    //tree.insert("KEY1", "VAL1");
+    //assert_eq!(tree.get(&"KEY1"), Ok(Some(sled::IVec::from("VAL1"))));
 
     // 范围查询
-    for kv in tree.range("KEY1".."KEY9") {
+    /* 
+    for kv in tree.range(..) {
         //println!("key:{}, value:{}", key.unw);
         //println!("key :{:?}, value:{:?}", kv.unwrap().0, kv.unwrap().1);
         println!("key value :{:?}", kv.unwrap());
     }
+    
 
     // 删除
     tree.remove(&"KEY1");
@@ -125,6 +128,9 @@ async fn main() -> Result<()> {
 
     // 阻塞直到所有修改都写入硬盘
     tree.flush();
+    */
+
+
     /* 
     let mut todo_list = TodoList::new("my_db".to_string());
     todo_list.add(format!("ok"))?;
