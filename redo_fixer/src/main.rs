@@ -105,7 +105,8 @@ impl TodoList {
 async fn main() -> Result<()> {
     //打开数据库
     //let tree = sled::open("/tmp/welcome-to-sled").expect("open");
-    let tree = sled::open("/tmp/raft_log.bak/sled/1125_9_7066373972136435680.2").expect("open");
+    let storage = SledStorage::new(graph_id, *partition_id, *peer_id, None);
+    //let tree = sled::open("/tmp/raft_log.bak/sled/1125_9_7066373972136435680.2").expect("open");
 
     // 插入KV，读取Key对应的值
     //tree.insert("KEY1", "VAL1");
